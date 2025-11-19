@@ -26,6 +26,12 @@ const TodoList = () => {
         setListInputs({ ...listInputs, [index]: value });
     };
 
+    const handleDeleteTodo = (index) => {
+        const newTodos = [...todos];
+        newTodos.splice(index, 1);
+        setTodos(newTodos);
+    };
+
     return (
         <>
         <div className="todo-container">
@@ -46,25 +52,25 @@ const TodoList = () => {
                 <div key={index} className='todo-card'>
                     <div className='heading_todo'>
                         <h3>{todo.heading}</h3>
-                        <button className='delete-button-heading' onClick={() => handDeleteTodo(index)}>Delete Heading</button>
+                        <button className='delete-button-heading' onClick={handleDeleteTodo}>Delete Heading</button>
                     </div>
                     <div className='add_list'>
                         <ul>
                             {todo.lists.map((list, listIndex) => (
                                 <li key={listIndex} className='todo_inside_list'>
-                                    <p>
-                                        {list}
-                                    </p>
+                                    <p>{list}</p>
                                 </li>
                             ))}
                         </ul>
-                        <input
-                            type='text'
-                            className='list-input'
-                            placeholder='Agregar Lista'
-                            value={listInputs[index] || ''}
-                            onChange={(e) => handleListInputChange(index, e.target.value)}/>
-                        <button className='add-list-button' onClick={() => handleAddList(index)}>Agregar Lista</button>
+                        <div className='add_list-controls'>
+                            <input
+                                type='text'
+                                className='list-input'
+                                placeholder='Agregar Lista'
+                                value={listInputs[index] || ''}
+                                onChange={(e) => handleListInputChange(index, e.target.value)}/>
+                            <button className='add-list-button' onClick={() => handleAddList(index)}>Agregar Lista</button>
+                        </div>    
                     </div>
                 </div>
             ))}
